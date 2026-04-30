@@ -1,163 +1,752 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Le Bar'bapapa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: "Arial Rounded MT Bold", Arial, sans-serif;
-      background: linear-gradient(180deg, #ff6fa5, #ff9ec4);
-      color: white;
-    }
-
-    header {
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .tagline {
-      background: rgba(255, 255, 255, 0.2);
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-weight: bold;
-    }
-
-    h1 {
-      font-size: 3em;
-      margin: 20px 0 10px;
-    }
-
-    .subtitle {
-      font-size: 1.2em;
-    }
-
-    .cta {
-      margin-top: 20px;
-    }
-
-    .cta button {
-      background: #00b3a4;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 30px;
-      color: white;
-      font-size: 1em;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .cta button:hover {
-      background: #009688;
-    }
-
-    .products {
-      background: #00b3a4;
-      padding: 40px 20px;
-      border-top-left-radius: 40px;
-      border-top-right-radius: 40px;
-      margin-top: 40px;
-    }
-
-    .products h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .product-card {
-      background: white;
-      color: #333;
-      border-radius: 20px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .product-card img {
-      max-width: 100%;
-      border-radius: 15px;
-    }
-
-    .product-card h3 {
-      margin: 15px 0 10px;
-    }
-
-    .product-card button {
-      background: #ff6fa5;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      opacity: 0.8;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Bar'bapapa — Le bar éco-responsable pour étudiants & festivals</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap%22 rel="stylesheet">
+<style>
+  :root {
+    --pink: #FF3F8E;
+    --pink-light: #FFB3D5;
+    --teal: #00C9B1;
+    --teal-dark: #009E8C;
+    --yellow: #FFE033;
+    --dark: #1A1A2E;
+    --card-bg: rgba(255,255,255,0.07);
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--dark);
+    color: #fff;
+    overflow-x: hidden;
+  }
+ 
+  /* ── BRUIT DE FOND ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+ 
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(26,26,46,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+ 
+  .logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.7rem;
+    background: linear-gradient(135deg, var(--pink), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+  }
+ 
+  nav ul { list-style: none; display: flex; gap: 32px; }
+  nav a { text-decoration: none; color: rgba(255,255,255,0.7); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: color .2s; }
+  nav a:hover { color: var(--teal); }
+ 
+  .nav-cta {
+    background: linear-gradient(135deg, var(--pink), #c0006a);
+    color: #fff !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-weight: 800 !important;
+    box-shadow: 0 4px 20px rgba(255,63,142,0.4);
+    transition: transform .2s, box-shadow .2s !important;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,63,142,0.55) !important; color: #fff !important; }
+ 
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  .glow-pink  { background: var(--pink);  top: -100px; right: -100px; animation: drift 8s ease-in-out infinite; }
+  .glow-teal  { background: var(--teal);  bottom: -50px; left: -100px; animation: drift 10s ease-in-out infinite reverse; }
+  .glow-yellow { background: var(--yellow); top: 40%; left: 30%; width: 300px; height: 300px; animation: drift 12s ease-in-out infinite; }
+ 
+  @keyframes drift {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50%     { transform: translate(30px,20px) scale(1.1); }
+  }
+ 
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,201,177,0.15); border: 1px solid rgba(0,201,177,0.4);
+    color: var(--teal); padding: 8px 20px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+ 
+  .hero h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1.05;
+    background: linear-gradient(135deg, #fff 0%, var(--pink-light) 40%, var(--teal) 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    animation: fadeUp 0.7s ease both 0.1s;
+  }
+ 
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.35rem); font-weight: 700;
+    color: rgba(255,255,255,0.7); max-width: 620px;
+    line-height: 1.6; margin: 0 auto 40px;
+    animation: fadeUp 0.7s ease both 0.2s;
+  }
+ 
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.7s ease both 0.3s;
+  }
+ 
+  .btn-primary {
+    background: linear-gradient(135deg, var(--pink), #c0006a);
+    color: #fff; padding: 16px 36px; border-radius: 100px;
+    font-family: 'Fredoka One', cursive; font-size: 1.1rem;
+    text-decoration: none; box-shadow: 0 6px 30px rgba(255,63,142,0.45);
+    transition: transform .2s, box-shadow .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(255,63,142,0.55); }
+ 
+  .btn-secondary {
+    background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.2);
+    color: #fff; padding: 16px 36px; border-radius: 100px;
+    font-family: 'Fredoka One', cursive; font-size: 1.1rem;
+    text-decoration: none; transition: background .2s, border-color .2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.13); border-color: var(--teal); }
+ 
+  .hero-stats {
+    display: flex; gap: 48px; flex-wrap: wrap; justify-content: center;
+    margin-top: 72px;
+    animation: fadeUp 0.7s ease both 0.45s;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Fredoka One', cursive; font-size: 2.4rem; color: var(--yellow); line-height: 1; }
+  .stat-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  /* ── CONCEPT ── */
+  .section { padding: 100px 5%; position: relative; z-index: 1; }
+  .section-label {
+    text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; font-weight: 800;
+    color: var(--teal); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .section-desc { color: rgba(255,255,255,0.65); font-size: 1.05rem; line-height: 1.75; max-width: 540px; }
+ 
+  .concept-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+ 
+  .concept-visual {
+    position: relative; border-radius: 24px; overflow: hidden;
+    background: linear-gradient(135deg, #ff3f8e22, #00c9b122);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 48px 40px; text-align: center;
+  }
+ 
+  .bar-diagram {
+    display: flex; gap: 6px; justify-content: center; align-items: flex-end; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .cup {
+    width: 18px; height: 26px; border-radius: 2px 2px 5px 5px;
+    background: var(--teal);
+    animation: popIn 0.4s ease both;
+  }
+  .cup:nth-child(3n) { background: var(--pink); }
+  .cup:nth-child(5n) { background: var(--yellow); height: 22px; }
+  @keyframes popIn {
+    from { transform: scaleY(0); transform-origin: bottom; }
+    to   { transform: scaleY(1); }
+  }
+ 
+  .diagram-label {
+    font-family: 'Fredoka One', cursive; font-size: 1.3rem;
+    color: var(--pink-light); margin-top: 12px;
+  }
+ 
+  .features-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .features-list li {
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 0.98rem; color: rgba(255,255,255,0.82); font-weight: 600;
+  }
+  .feat-icon {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
+  }
+  .fi-pink   { background: rgba(255,63,142,0.18); }
+  .fi-teal   { background: rgba(0,201,177,0.18); }
+  .fi-yellow { background: rgba(255,224,51,0.18); }
+ 
+  /* ── DIVIDER ── */
+  .wave-divider { line-height: 0; overflow: hidden; }
+  .wave-divider svg { display: block; width: 100%; }
+ 
+  /* ── PRODUITS ── */
+  .products-bg {
+    background: linear-gradient(180deg, rgba(0,201,177,0.06) 0%, transparent 100%);
+  }
+ 
+  .products-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+    max-width: 1100px; margin: 48px auto 0;
+  }
+ 
+  .product-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+ 
+  .product-card.featured {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 1px var(--pink), 0 8px 40px rgba(255,63,142,0.2);
+  }
+  .badge-featured {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--pink); color: #fff;
+    font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    padding: 5px 12px; border-radius: 100px;
+  }
+ 
+  .product-thumb {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; position: relative;
+  }
+  .thumb-bar  { background: linear-gradient(135deg, #00c9b115, #00c9b130); }
+  .thumb-stool { background: linear-gradient(135deg, #ff3f8e15, #ff3f8e30); }
+  .thumb-kit  { background: linear-gradient(135deg, #ffe03315, #ffe03330); }
+ 
+  .thumb-bar::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+  }
+  .thumb-stool::after { background: linear-gradient(90deg, var(--pink), #c0006a); }
+  .thumb-kit::after   { background: linear-gradient(90deg, var(--yellow), #c9a800); }
+ 
+  .product-info { padding: 24px; }
+  .product-name { font-family: 'Fredoka One', cursive; font-size: 1.4rem; margin-bottom: 6px; }
+  .product-desc { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 20px; }
+  .product-price {
+    font-family: 'Fredoka One', cursive; font-size: 2rem;
+    color: var(--yellow); display: flex; align-items: baseline; gap: 6px;
+    margin-bottom: 16px;
+  }
+  .price-unit { font-size: 0.85rem; color: rgba(255,255,255,0.4); font-family: 'Nunito', sans-serif; font-weight: 600; }
+ 
+  .btn-buy {
+    display: block; text-align: center; padding: 14px;
+    border-radius: 12px; font-family: 'Fredoka One', cursive; font-size: 1rem;
+    text-decoration: none; transition: all .2s;
+  }
+  .btn-buy-teal { background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: #fff; }
+  .btn-buy-pink { background: linear-gradient(135deg, var(--pink), #c0006a); color: #fff; }
+  .btn-buy-yellow { background: linear-gradient(135deg, var(--yellow), #c9a800); color: var(--dark); }
+  .btn-buy:hover { transform: scale(1.02); filter: brightness(1.1); }
+ 
+  /* ── COMMENT ÇA MARCHE ── */
+  .steps { max-width: 900px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 0; position: relative; }
+  .steps::before {
+    content: ''; position: absolute; left: 27px; top: 40px; bottom: 40px; width: 2px;
+    background: linear-gradient(180deg, var(--teal), var(--pink), var(--yellow));
+  }
+ 
+  .step { display: flex; gap: 28px; align-items: flex-start; padding: 24px 0; }
+  .step-num {
+    width: 54px; height: 54px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive; font-size: 1.4rem;
+    position: relative; z-index: 1;
+  }
+  .s1 { background: var(--teal); color: var(--dark); }
+  .s2 { background: var(--pink); color: #fff; }
+  .s3 { background: var(--yellow); color: var(--dark); }
+  .s4 { background: rgba(255,255,255,0.15); color: #fff; border: 2px solid rgba(255,255,255,0.3); }
+ 
+  .step-content h3 { font-family: 'Fredoka One', cursive; font-size: 1.3rem; margin-bottom: 6px; }
+  .step-content p  { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
+ 
+  /* ── ÉCOCUP ── */
+  .eco-section {
+    background: linear-gradient(135deg, rgba(255,63,142,0.06), rgba(0,201,177,0.06));
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+ 
+  .eco-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;
+    max-width: 900px; margin: 48px auto 0;
+  }
+  .eco-card {
+    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 28px 24px; text-align: center;
+    transition: transform .3s;
+  }
+  .eco-card:hover { transform: translateY(-4px); }
+  .eco-icon { font-size: 2.5rem; margin-bottom: 14px; }
+  .eco-card h3 { font-family: 'Fredoka One', cursive; font-size: 1.15rem; margin-bottom: 8px; }
+  .eco-card p  { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+ 
+  /* ── OPEN SOURCE ── */
+  .opensource-banner {
+    background: linear-gradient(135deg, rgba(255,224,51,0.1), rgba(0,201,177,0.08));
+    border: 1px solid rgba(255,224,51,0.2);
+    border-radius: 20px; padding: 48px; max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .opensource-banner h2 { font-family: 'Fredoka One', cursive; font-size: 2.2rem; color: var(--yellow); margin-bottom: 14px; }
+  .opensource-banner p  { color: rgba(255,255,255,0.65); font-size: 1rem; line-height: 1.7; max-width: 600px; margin: 0 auto 28px; }
+ 
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 2px solid var(--yellow); color: var(--yellow);
+    padding: 14px 32px; border-radius: 100px;
+    font-family: 'Fredoka One', cursive; font-size: 1rem;
+    text-decoration: none; transition: all .2s;
+  }
+  .btn-outline:hover { background: var(--yellow); color: var(--dark); }
+ 
+  /* ── TÉMOIGNAGES ── */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+    max-width: 1000px; margin: 48px auto 0;
+  }
+  .testi-card {
+    background: var(--card-bg); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 28px;
+  }
+  .testi-stars { color: var(--yellow); font-size: 0.9rem; margin-bottom: 12px; }
+  .testi-text  { font-size: 0.92rem; color: rgba(255,255,255,0.75); line-height: 1.65; margin-bottom: 18px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    background: linear-gradient(135deg, var(--pink), var(--teal));
+  }
+  .testi-name { font-weight: 800; font-size: 0.88rem; }
+  .testi-role { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+ 
+  /* ── CTA FINAL ── */
+  .cta-section {
+    text-align: center; padding: 120px 5%;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,63,142,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-family: 'Fredoka One', cursive; font-size: clamp(2.2rem, 5vw, 4rem); margin-bottom: 16px; }
+  .cta-section p  { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 520px; margin: 0 auto 40px; line-height: 1.7; }
+ 
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 48px 5%; display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo { font-family: 'Fredoka One', cursive; font-size: 1.5rem; background: linear-gradient(135deg, var(--pink), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  footer p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-links a:hover { color: var(--teal); }
+ 
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .concept-grid { grid-template-columns: 1fr; }
+    .eco-grid { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    footer { flex-direction: column; text-align: center; }
+    .steps::before { left: 24px; }
+  }
+ 
+  /* Scroll animations */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
 </head>
-
 <body>
-
-<header>
-  <div class="tagline">
-    Un bar éco-responsable pour étudiants et festivals !
-  </div>
-
-  <h1>Le Bar'bapapa 🍭</h1>
-
-  <p class="subtitle">
-    Construire son bar en Ecocup, c’est possible !
-  </p>
-
-  <div class="cta">
-    <button>Acheter maintenant</button>
-  </div>
-</header>
-
-<section class="products">
-  <h2>Nos produits</h2>
-
-  <div class="product-grid">
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/250" alt="Bar Ecocup">
-      <h3>Bar Ecocup</h3>
-      <p>Modulaire, éco-friendly et stylé.</p>
-      <button>Voir</button>
-    </div>
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/250" alt="Module">
-      <h3>Modules personnalisés</h3>
-      <p>Adapte ton bar à ton événement.</p>
-      <button>Voir</button>
-    </div>
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/250" alt="Accessoires">
-      <h3>Accessoires</h3>
-      <p>Optimise ton installation.</p>
-      <button>Voir</button>
-    </div>
-
-  </div>
+ 
+<!-- NAV -->
+<nav>
+<div class="logo">🍹 Bar'bapapa</div>
+<ul>
+<li><a href="#concept">Concept</a></li>
+<li><a href="#produits">Produits</a></li>
+<li><a href="#comment">Comment ça marche</a></li>
+<li><a href="#ecolo">Éco-responsable</a></li>
+</ul>
+<a href="#produits" class="nav-cta">Commander</a>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero">
+<div class="hero-glow glow-pink"></div>
+<div class="hero-glow glow-teal"></div>
+<div class="hero-glow glow-yellow"></div>
+ 
+  <span class="hero-badge">🌿 Un bar éco-responsable pour étudiants &amp; festivals</span>
+<h1>Le Bar'bapapa</h1>
+<p class="hero-sub">Le bar modulaire, démontable et éco-responsable construit avec des écocups recyclées. Assemblage en 20 minutes, fun garanti 🎉</p>
+ 
+  <div class="hero-btns">
+<a href="#produits" class="btn-primary">🛒 Découvrir les modules</a>
+<a href="#comment" class="btn-secondary">▶ Comment ça marche ?</a>
+</div>
+ 
+  <div class="hero-stats">
+<div class="stat">
+<div class="stat-num">250€</div>
+<div class="stat-label">par module</div>
+</div>
+<div class="stat">
+<div class="stat-num">20 min</div>
+<div class="stat-label">assemblage</div>
+</div>
+<div class="stat">
+<div class="stat-num">224</div>
+<div class="stat-label">écocups / module</div>
+</div>
+<div class="stat">
+<div class="stat-num">∞</div>
+<div class="stat-label">configurations</div>
+</div>
+</div>
 </section>
-
+ 
+<!-- CONCEPT -->
+<section class="section" id="concept">
+<div class="concept-grid">
+<div>
+<p class="section-label">Notre concept</p>
+<h2 class="section-title">Un bar qui se construit<br><span style="color:var(--pink)">avec des écocups</span></h2>
+<p class="section-desc">Fini les bars encombrants et hors de prix ! Le Bar'bapapa transforme vos écocups récupérées en festivals, soirées étudiantes et MIAs en un comptoir modulaire unique. Chaque verre devient une brique de votre bar.</p>
+ 
+      <ul class="features-list" style="margin-top: 28px;">
+<li>
+<span class="feat-icon fi-teal">♻️</span>
+<span>Fabriqué avec des écocups collectées lors d'événements (INSA, festivals, coloc…)</span>
+</li>
+<li>
+<span class="feat-icon fi-pink">🔧</span>
+<span>Raccords imprimés en 3D ou injectés — assemblage sans outil</span>
+</li>
+<li>
+<span class="feat-icon fi-yellow">📐</span>
+<span>Plans en open source disponibles — imprimez vous-même ou commandez chez nous</span>
+</li>
+</ul>
+</div>
+ 
+    <div class="concept-visual">
+<div class="bar-diagram">
+<!-- Simulation visuelle du bar en écocups -->
+<div style="display:grid; grid-template-columns: repeat(8,18px); gap:4px;">
+<div class="cup" style="animation-delay:.0s"></div>
+<div class="cup" style="animation-delay:.05s"></div>
+<div class="cup" style="animation-delay:.1s"></div>
+<div class="cup" style="animation-delay:.15s"></div>
+<div class="cup" style="animation-delay:.2s"></div>
+<div class="cup" style="animation-delay:.25s"></div>
+<div class="cup" style="animation-delay:.3s"></div>
+<div class="cup" style="animation-delay:.35s"></div>
+<div class="cup" style="animation-delay:.4s"></div>
+<div class="cup" style="animation-delay:.45s"></div>
+<div class="cup" style="animation-delay:.5s"></div>
+<div class="cup" style="animation-delay:.55s"></div>
+<div class="cup" style="animation-delay:.6s"></div>
+<div class="cup" style="animation-delay:.65s"></div>
+<div class="cup" style="animation-delay:.7s"></div>
+<div class="cup" style="animation-delay:.75s"></div>
+<div class="cup" style="animation-delay:.8s"></div>
+<div class="cup" style="animation-delay:.85s"></div>
+<div class="cup" style="animation-delay:.9s"></div>
+<div class="cup" style="animation-delay:.95s"></div>
+<div class="cup" style="animation-delay:1s"></div>
+<div class="cup" style="animation-delay:1.05s"></div>
+<div class="cup" style="animation-delay:1.1s"></div>
+<div class="cup" style="animation-delay:1.15s"></div>
+</div>
+</div>
+<div class="diagram-label">🍹 Bar'bapapa complet</div>
+<p style="font-size:0.82rem; color:rgba(255,255,255,0.45); margin-top:8px;">Chaque carré = 1 écocup</p>
+ 
+      <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+<span style="background:rgba(0,201,177,0.15);border:1px solid rgba(0,201,177,0.3);color:var(--teal);padding:6px 14px;border-radius:100px;font-size:0.78rem;font-weight:700;">Raccord d'angle</span>
+<span style="background:rgba(255,63,142,0.15);border:1px solid rgba(255,63,142,0.3);color:var(--pink);padding:6px 14px;border-radius:100px;font-size:0.78rem;font-weight:700;">Raccord double</span>
+<span style="background:rgba(255,224,51,0.15);border:1px solid rgba(255,224,51,0.3);color:var(--yellow);padding:6px 14px;border-radius:100px;font-size:0.78rem;font-weight:700;">Adaptateur</span>
+</div>
+</div>
+</div>
+</section>
+ 
+<!-- PRODUITS -->
+<section class="section products-bg" id="produits">
+<div style="text-align:center; max-width:700px; margin: 0 auto;">
+<p class="section-label">Nos produits</p>
+<h2 class="section-title">Choisissez votre configuration</h2>
+<p style="color:rgba(255,255,255,0.6); font-size:0.98rem; line-height:1.7;">Du module de base au kit festival complet — tous modulables, tous recyclables.</p>
+</div>
+ 
+  <div class="products-grid">
+<!-- Bar module -->
+<div class="product-card">
+<div class="product-thumb thumb-bar">🍺</div>
+<div class="product-info">
+<div class="product-name">Module Bar Standard</div>
+<div class="product-desc">Un module de bar complet avec ses 224 écocups, 2 raccords d'angle, 2 raccords doubles et tous les adaptateurs. Montage en 20 min.</div>
+<div class="product-price">250€ <span class="price-unit">/ module</span></div>
+<a href="#contact" class="btn-buy btn-buy-teal">Commander ce module</a>
+</div>
+</div>
+ 
+    <!-- Tabouret -->
+<div class="product-card featured">
+<span class="badge-featured">★ Nouveauté</span>
+<div class="product-thumb thumb-stool">🪑</div>
+<div class="product-info">
+<div class="product-name">Le Tabouret Bar'bapapa</div>
+<div class="product-desc">Déclinaison assise du concept — même principe, même solidité. Parfait pour compléter votre espace bar et épater vos invités.</div>
+<div class="product-price">90€ <span class="price-unit">/ tabouret</span></div>
+<a href="#contact" class="btn-buy btn-buy-pink">Commander ce tabouret</a>
+</div>
+</div>
+ 
+    <!-- Kit impression -->
+<div class="product-card">
+<div class="product-thumb thumb-kit">🖨️</div>
+<div class="product-info">
+<div class="product-name">Kit DIY — Plans + Raccords</div>
+<div class="product-desc">Les plans en open source + raccords injectés prêts à assembler. Vous apportez vos écocups, on fournit le reste. Idéal si vous avez une imprimante 3D.</div>
+<div class="product-price">40€ <span class="price-unit">/ kit raccords</span></div>
+<a href="#contact" class="btn-buy btn-buy-yellow">Télécharger les plans</a>
+</div>
+</div>
+</div>
+ 
+  <!-- Chiffrage info -->
+<div style="max-width:700px; margin:40px auto 0; background:rgba(255,224,51,0.07); border:1px solid rgba(255,224,51,0.15); border-radius:16px; padding:28px; text-align:center;">
+<p style="font-size:0.88rem; color:rgba(255,255,255,0.6); line-height:1.7;">
+      💡 <strong style="color:var(--yellow);">Rentabilité dès 90 modules vendus</strong> — Coût de revient : ~600g de plastique (20€) + 3h d'impression (120€) + 1 palette (10€). Prix de vente : 250€/module.
+</p>
+</div>
+</section>
+ 
+<!-- COMMENT ÇA MARCHE -->
+<section class="section" id="comment">
+<div style="text-align:center; max-width:700px; margin: 0 auto 0;">
+<p class="section-label">Mode d'emploi</p>
+<h2 class="section-title">De l'écocup au bar,<br><span style="color:var(--teal)">en 4 étapes</span></h2>
+</div>
+ 
+  <div class="steps reveal">
+<div class="step">
+<div class="step-num s1">1</div>
+<div class="step-content">
+<h3>Collectez vos écocups</h3>
+<p>Récupérez vos écocups accumulées après les soirées INSA, festivals, colocs, MIAs et associations. Plus vous en avez, plus votre bar sera grand !</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num s2">2</div>
+<div class="step-content">
+<h3>Commandez vos raccords</h3>
+<p>Achetez le kit de raccords (imprimés 3D ou injectés) adapté au nombre de modules souhaités — angle, double et adaptateurs.</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num s3">3</div>
+<div class="step-content">
+<h3>Assemblez en 20 minutes</h3>
+<p>Emboîtez les écocups dans les raccords selon le plan fourni. Aucun outil nécessaire. Le design modulaire permet des configurations au choix : droit, en L, en U…</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num s4">4</div>
+<div class="step-content">
+<h3>Profitez de la soirée 🎉</h3>
+<p>Votre bar est prêt ! Léger, démontable en 5 min, transportable dans un sac. Ré-utilisable à l'infini pour tous vos événements.</p>
+</div>
+</div>
+</div>
+</section>
+ 
+<!-- ÉCOCUP / ECOLOGIE -->
+<section class="section eco-section" id="ecolo">
+<div style="text-align:center; max-width:700px; margin:0 auto;">
+<p class="section-label">Éco-responsabilité</p>
+<h2 class="section-title">Pourquoi des écocups ?</h2>
+<p style="color:rgba(255,255,255,0.6); font-size:0.98rem; line-height:1.7;">L'écocup est déjà là, consignée, accumulée. Autant lui donner une deuxième vie structurelle !</p>
+</div>
+ 
+  <div class="eco-grid reveal">
+<div class="eco-card">
+<div class="eco-icon">♻️</div>
+<h3>Upcycling total</h3>
+<p>Vos écocups deviennent les murs d'un vrai bar. Zéro déchet, 100% récupération.</p>
+</div>
+<div class="eco-card">
+<div class="eco-icon">🚚</div>
+<h3>Ultra-transportable</h3>
+<p>Démontable en quelques minutes. Une palette suffit. Fini les camions pour transporter le bar.</p>
+</div>
+<div class="eco-card">
+<div class="eco-icon">🛠️</div>
+<h3>DIY & Open Source</h3>
+<p>Plans disponibles librement. Imprimez vous-même ou faites appel à nos kits prêts à assembler.</p>
+</div>
+</div>
+</section>
+ 
+<!-- OPEN SOURCE -->
+<section class="section">
+<div class="opensource-banner reveal">
+<div style="font-size:3rem; margin-bottom:16px;">🔓</div>
+<h2>Open Source &amp; Communautaire</h2>
+<p>Tous nos plans de découpe et fichiers d'impression 3D sont disponibles gratuitement. Rejoignez la communauté de makers qui construisent leur Bar'bapapa aux quatre coins de France.</p>
+<a href="#contact" class="btn-outline">📥 Télécharger les plans gratuits</a>
+</div>
+</section>
+ 
+<!-- TÉMOIGNAGES -->
+<section class="section">
+<div style="text-align:center; max-width:700px; margin:0 auto;">
+<p class="section-label">Ils nous font confiance</p>
+<h2 class="section-title">La communauté Bar'bapapa</h2>
+</div>
+ 
+  <div class="testimonials-grid reveal">
+<div class="testi-card">
+<div class="testi-stars">★★★★★</div>
+<p class="testi-text">"On l'a monté pour le WEI en moins de 20 min. Les gens n'en croyaient pas leurs yeux — un bar fait d'écocups ! La soirée était légendaire."</p>
+<div class="testi-author">
+<div class="testi-avatar">🎓</div>
+<div>
+<div class="testi-name">Mathieu R.</div>
+<div class="testi-role">Bureau BDE INSA Lyon</div>
+</div>
+</div>
+</div>
+<div class="testi-card">
+<div class="testi-stars">★★★★★</div>
+<p class="testi-text">"Parfait pour notre festival. On avait récupéré des centaines d'écocups l'année d'avant. Maintenant elles servent de comptoir. Concept génial."</p>
+<div class="testi-author">
+<div class="testi-avatar">🎪</div>
+<div>
+<div class="testi-name">Camille D.</div>
+<div class="testi-role">Organisatrice festival étudiant</div>
+</div>
+</div>
+</div>
+<div class="testi-card">
+<div class="testi-stars">★★★★☆</div>
+<p class="testi-text">"Les plans open source sont très bien documentés. J'ai imprimé les raccords moi-même et tout s'est assemblé au premier essai."</p>
+<div class="testi-author">
+<div class="testi-avatar">🖨️</div>
+<div>
+<div class="testi-name">Lucas T.</div>
+<div class="testi-role">Maker &amp; passionné de FabLab</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+ 
+<!-- CTA FINAL -->
+<section class="cta-section" id="contact">
+<h2>Construis ton bar aujourd'hui 🍹</h2>
+<p>Que tu organises une soirée étudiante, un festival ou un événement associatif — le Bar'bapapa est fait pour toi.</p>
+<div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
+<a href="mailto:contact@barbapapa-bar.fr" class="btn-primary">📩 Nous contacter</a>
+<a href="#produits" class="btn-secondary">Voir les modules</a>
+</div>
+ 
+  <div style="margin-top:64px; display:flex; gap:40px; flex-wrap:wrap; justify-content:center;">
+<div style="text-align:center;">
+<div style="font-size:2rem; margin-bottom:8px;">📧</div>
+<div style="font-size:0.85rem; color:rgba(255,255,255,0.5);">contact@barbapapa-bar.fr</div>
+</div>
+<div style="text-align:center;">
+<div style="font-size:2rem; margin-bottom:8px;">📍</div>
+<div style="font-size:0.85rem; color:rgba(255,255,255,0.5);">INSA Lyon &amp; festivals partout en France</div>
+</div>
+<div style="text-align:center;">
+<div style="font-size:2rem; margin-bottom:8px;">🐙</div>
+<div style="font-size:0.85rem; color:rgba(255,255,255,0.5);">Plans dispo sur GitHub</div>
+</div>
+</div>
+</section>
+ 
+<!-- FOOTER -->
 <footer>
-  © 2026 Le Bar'bapapa — Éco-responsable & festif 🌿
+<div class="footer-logo">🍹 Bar'bapapa</div>
+<p>© 2024 Bar'bapapa — Alexis, Colin &amp; Noé — FIP PL4 Design INSA</p>
+<div class="footer-links">
+<a href="#concept">Concept</a>
+<a href="#produits">Produits</a>
+<a href="#ecolo">Écologie</a>
+<a href="#contact">Contact</a>
+</div>
 </footer>
-
+ 
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  reveals.forEach(r => obs.observe(r));
+ 
+  // Nav active
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      window.scrollY > 50 ? 'rgba(26,26,46,0.97)' : 'rgba(26,26,46,0.85)';
+  });
+</script>
 </body>
 </html>
