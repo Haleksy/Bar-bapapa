@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Le Bar'bapapa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Arial Rounded MT Bold", Arial, sans-serif;
+      background: linear-gradient(180deg, #ff6fa5, #ff9ec4);
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .tagline {
+      background: rgba(255, 255, 255, 0.2);
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin: 20px 0 10px;
+    }
+
+    .subtitle {
+      font-size: 1.2em;
+    }
+
+    .cta {
+      margin-top: 20px;
+    }
+
+    .cta button {
+      background: #00b3a4;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cta button:hover {
+      background: #009688;
+    }
+
+    .products {
+      background: #00b3a4;
+      padding: 40px 20px;
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+      margin-top: 40px;
+    }
+
+    .products h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      color: #333;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      border-radius: 15px;
+    }
+
+    .product-card h3 {
+      margin: 15px 0 10px;
+    }
+
+    .product-card button {
+      background: #ff6fa5;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="tagline">
+    Un bar éco-responsable pour étudiants et festivals !
+  </div>
+
+  <h1>Le Bar'bapapa 🍭</h1>
+
+  <p class="subtitle">
+    Construire son bar en Ecocup, c’est possible !
+  </p>
+
+  <div class="cta">
+    <button>Acheter maintenant</button>
+  </div>
+</header>
+
+<section class="products">
+  <h2>Nos produits</h2>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <img src="https://via.placeholder.com/250" alt="Bar Ecocup">
+      <h3>Bar Ecocup</h3>
+      <p>Modulaire, éco-friendly et stylé.</p>
+      <button>Voir</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://via.placeholder.com/250" alt="Module">
+      <h3>Modules personnalisés</h3>
+      <p>Adapte ton bar à ton événement.</p>
+      <button>Voir</button>
+    </div>
+
+    <div class="product-card">
+      <img src="https://via.placeholder.com/250" alt="Accessoires">
+      <h3>Accessoires</h3>
+      <p>Optimise ton installation.</p>
+      <button>Voir</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 Le Bar'bapapa — Éco-responsable & festif 🌿
+</footer>
+
+</body>
+</html>
